@@ -35,13 +35,11 @@ logreg_model.fit(X_train, y_train)
 # y_pred = logreg_model.predict(X_test)
 
 
-import dash
-import dash_core_components as dcc
-import dash_html_components as html
-import plotly.express as px
-
+# Create the Dash app
 app = dash.Dash(__name__)
+server = app.server
 
+# Define the layout of the dashboard
 app.layout = html.Div(
     className='container',
     children=[
@@ -164,24 +162,30 @@ def update_correlation_plot(x_feature, y_feature):
     fig.update_layout(title=f"Correlation between {x_feature} and {y_feature}")
     return fig
 
-
 # Define the callback function to predict wine quality
 @app.callback(
-    dash.dependencies.Output(component_id='prediction-output', component_property='children'),
-    [dash.dependencies.Input('predict-button', 'n_clicks')],
-    [dash.dependencies.State('fixed_acidity', 'value'),
-     dash.dependencies.State('volatile_acidity', 'value'),
-     dash.dependencies.State('citric_acid', 'value'),
-     dash.dependencies.State('residual_sugar', 'value'),
-     # Include the remaining input states here
-     ]
+    Output(component_id='prediction-output', component_property='children'),
+    [Input('predict-button', 'n_clicks')],
+    [State('fixed_acidity', 'value'),
+     State('volatile_acidity', 'value'),
+     State('citric_acid', 'value'),
+     State('residual_sugar', 'value'),
+     State('chlorides', 'value'),
+     State('free_sulfur_dioxide', 'value'),
+     State('total_sulfur_dioxide', 'value'),
+     State('density', 'value'),
+     State('ph', 'value'),
+     State('sulphates', 'value'),
+     State('alcohol', 'value')]
 )
-def predict_quality(n_clicks, fixed_acidity, volatile_acidity, citric_acid, residual_sugar):
+def predict_quality(n_clicks, fixed_acidity, volatile_acidity, citric_acid, residual_sugar,
+                     chlorides, free_sulfur_dioxide, total_sulfur_dioxide, density, ph, sulphates, alcohol):
     # Create input features array for prediction
-    input_features = [fixed_acidity, volatile_acidity, citric_acid, residual_sugar]
+    input_features = np.array([fixed_acidity, volatile_acidity, citric_acid, residual_sugar, chlorides, 
+                               free_sulfur_dioxide, total_sulfur_dioxide, density, ph, sulphates, alcohol]).reshape(1, -1)
 
     # Predict the wine quality (0 = bad, 1 = good)
-    prediction = logreg_model.predict([input_features])[0]
+    prediction = logreg_model.predict(input_features)[0]
 
     # Return the prediction
     if prediction == 1:

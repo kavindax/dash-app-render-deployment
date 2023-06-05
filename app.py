@@ -53,101 +53,119 @@ app.layout = html.Div(
                     children=[
                         html.H3('Exploratory Data Analysis'),
                         html.Div(
-                            className='row',
+                            className='form-group',
                             children=[
-                                html.Div(
-                                    className='col-md-6',
-                                    children=[
-                                        html.Label('Feature 1 (X-axis)'),
-                                        dcc.Dropdown(
-                                            id='x_feature',
-                                            options=[{'label': col, 'value': col} for col in data.columns],
-                                            value=data.columns[0]
-                                        ),
-                                    ],
-                                ),
-                                html.Div(
-                                    className='col-md-6',
-                                    children=[
-                                        html.Label('Feature 2 (Y-axis)'),
-                                        dcc.Dropdown(
-                                            id='y_feature',
-                                            options=[{'label': col, 'value': col} for col in data.columns],
-                                            value=data.columns[1]
-                                        ),
-                                    ],
-                                ),
-                            ],
+                                html.Label('Feature 1 (X-axis)'),
+                                dcc.Dropdown(
+                                    id='x_feature',
+                                    options=[{'label': col, 'value': col} for col in data.columns],
+                                    value=data.columns[0]
+                                )
+                            ]
+                        ),
+                        html.Div(
+                            className='form-group',
+                            children=[
+                                html.Label('Feature 2 (Y-axis)'),
+                                dcc.Dropdown(
+                                    id='y_feature',
+                                    options=[{'label': col, 'value': col} for col in data.columns],
+                                    value=data.columns[1]
+                                )
+                            ]
                         ),
                         dcc.Graph(id='correlation_plot'),
-                    ],
+                    ]
                 ),
+
                 html.Div(
                     className='col-md-6',
                     children=[
                         html.H3("Wine Quality Prediction"),
                         html.Div(
-                            className='row',
+                            className='form-group',
                             children=[
-                                html.Div(
-                                    className='col-md-6',
-                                    children=[
-                                        html.Label("Fixed Acidity"),
-                                        dcc.Input(id='fixed_acidity', type='number', required=True),
-                                    ],
-                                ),
-                                html.Div(
-                                    className='col-md-6',
-                                    children=[
-                                        html.Label("Volatile Acidity"),
-                                        dcc.Input(id='volatile_acidity', type='number', required=True),
-                                    ],
-                                ),
-                            ],
+                                html.Label("Fixed Acidity"),
+                                dcc.Input(id='fixed_acidity', type='number', required=True)
+                            ]
                         ),
                         html.Div(
-                            className='row',
+                            className='form-group',
                             children=[
-                                html.Div(
-                                    className='col-md-6',
-                                    children=[
-                                        html.Label("Citric Acid"),
-                                        dcc.Input(id='citric_acid', type='number', required=True),
-                                    ],
-                                ),
-                                html.Div(
-                                    className='col-md-6',
-                                    children=[
-                                        html.Label("Residual Sugar"),
-                                        dcc.Input(id='residual_sugar', type='number', required=True),
-                                    ],
-                                ),
-                            ],
+                                html.Label("Volatile Acidity"),
+                                dcc.Input(id='volatile_acidity', type='number', required=True)
+                            ]
                         ),
-                        # Add the remaining input fields here
                         html.Div(
-                            className='row',
+                            className='form-group',
                             children=[
-                                html.Div(
-                                    className='col-md-6',
-                                    children=[
-                                        html.Button('Predict', id='predict-button', n_clicks=0),
-                                    ],
-                                ),
-                                html.Div(
-                                    className='col-md-6',
-                                    children=[
-                                        html.H4("Predicted Quality"),
-                                        html.Div(id='prediction-output'),
-                                    ],
-                                ),
-                            ],
+                                html.Label("Citric Acid"),
+                                dcc.Input(id='citric_acid', type='number', required=True)
+                            ]
                         ),
-                    ],
-                ),
-            ],
-        ),
-    ],
+                        html.Div(
+                            className='form-group',
+                            children=[
+                                html.Label("Residual Sugar"),
+                                dcc.Input(id='residual_sugar', type='number', required=True)
+                            ]
+                        ),
+                        html.Div(
+                            className='form-group',
+                            children=[
+                                html.Label("Chlorides"),
+                                dcc.Input(id='chlorides', type='number', required=True)
+                            ]
+                        ),
+                        html.Div(
+                            className='form-group',
+                            children=[
+                                html.Label("Free Sulfur Dioxide"),
+                                dcc.Input(id='free_sulfur_dioxide', type='number', required=True)
+                            ]
+                        ),
+                        html.Div(
+                            className='form-group',
+                            children=[
+                                html.Label("Total Sulfur Dioxide"),
+                                dcc.Input(id='total_sulfur_dioxide', type='number', required=True)
+                            ]
+                        ),
+                        html.Div(
+                            className='form-group',
+                            children=[
+                                html.Label("Density"),
+                                dcc.Input(id='density', type='number', required=True)
+                            ]
+                        ),
+                        html.Div(
+                            className='form-group',
+                            children=[
+                                html.Label("pH"),
+                                dcc.Input(id='ph', type='number', required=True)
+                            ]
+                        ),
+                        html.Div(
+                            className='form-group',
+                            children=[
+                                html.Label("Sulphates"),
+                                dcc.Input(id='sulphates', type='number', required=True)
+                            ]
+                        ),
+                        html.Div(
+                            className='form-group',
+                            children=[
+                                html.Label("Alcohol"),
+                                dcc.Input(id='alcohol', type='number', required=True)
+                            ]
+                        ),
+                        html.Button('Predict', id='predict-button', n_clicks=0, className='btn btn-primary mt-3'),
+                        html.Div(id='prediction-output', className='mt-3')
+                    ]
+                )
+            ]
+        )
+    ]
 )
 
 
